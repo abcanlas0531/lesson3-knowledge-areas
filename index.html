@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lesson 3: Knowledge Areas — Interactive & Gamified (Light Theme)</title>
+</head>
+<body style="margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif;background:#f7fafc;color:#1f2937;line-height:1.5;">
+  <!-- Top Bar -->
+  <header style="position:sticky;top:0;z-index:10;background:#ffffff;padding:12px 16px;border-bottom:1px solid #e2e8f0;display:flex;align-items:center;gap:12px;">
+    <div style="display:flex;align-items:center;gap:8px;">
+      <div style="width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,#93c5fd,#c4b5fd);display:flex;align-items:center;justify-content:center;font-weight:800;color:#1e293b;">L3</div>
+      <h1 style="margin:0;font-size:18px;color:#0f172a;">Lesson 3: Project Management Knowledge Areas</h1>
+    </div>
+    <div style="margin-left:auto;display:flex;align-items:center;gap:12px;">
+      <div title="Timer" style="display:flex;align-items:center;gap:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:999px;padding:6px 10px;">
+        <span style="font-size:12px;color:#64748b;">⏱</span>
+        <span id="timer" style="font-variant-numeric:tabular-nums;font-weight:700;">05:00</span>
+      </div>
+      <div title="Points" style="display:flex;align-items:center;gap:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:999px;padding:6px 10px;">
+        <span style="font-size:12px;color:#64748b;">⭐</span>
+        <span id="points" style="font-variant-numeric:tabular-nums;font-weight:700;">0</span>
+      </div>
+      <div title="Badges" style="display:flex;align-items:center;gap:6px;background:#f8fafc;border:1px solid #e2e8f0;border-radius:999px;padding:6px 10px;">
+        <span style="font-size:12px;color:#64748b;">🏅</span>
+        <span id="badges" style="font-weight:700;">—</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Container -->
+  <main style="max-width:1200px;margin:24px auto;padding:0 16px;">
+    <!-- Hero / CTA -->
+    <section style="display:grid;grid-template-columns:1.1fr .9fr;gap:16px;align-items:stretch;">
+      <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:16px;">
+        <h2 style="margin:0 0 8px 0;font-size:22px;color:#0f172a;">Interactive Class Activity</h2>
+        <p style="margin:0 0 12px 0;color:#334155;">Master the <strong style="color:#2563eb;">10 Knowledge Areas</strong> through quick games, mini‑artifacts, and team challenges. Earn points, unlock badges, and export a facilitator report.</p>
+        <ul style="margin:0 0 12px 18px;color:#334155;">
+          <li>Round A — <em>Match It!</em> (multiple‑choice, randomized)</li>
+          <li>Round B — <em>Mini‑Artifacts</em> (WBS, Risk Register, Comms Plan)</li>
+          <li>Round C — <em>Integrations</em> (explain cross‑area links)</li>
+        </ul>
+        <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+          <button id="startBtn" style="cursor:pointer;background:#86efac;border:1px solid #34d399;color:#065f46;font-weight:800;border-radius:10px;padding:10px 14px;">▶ Start Session</button>
+          <button id="resetBtn" style="cursor:pointer;background:#e2e8f0;border:1px solid #cbd5e1;color:#334155;font-weight:700;border-radius:10px;padding:10px 14px;">↺ Reset</button>
+          <button id="exportBtn" style="cursor:pointer;background:#bae6fd;border:1px solid #7dd3fc;color:#0c4a6e;font-weight:800;border-radius:10px;padding:10px 14px;">⬇ Export Report</button>
+        </div>
+        <p id="statusMsg" style="margin:10px 0 0 0;color:#059669;font-weight:600;">Ready.</p>
+      </div>
+      <div style="background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:16px;display:flex;flex-direction:column;justify-content:center;">
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:8px;">
+          <div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:10px;text-align:center;">
+            <div style="font-size:24px;">📘</div>
+            <div style="font-size:12px;color:#64748b;">Scope</div>
+          </div>
+          <div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:10px;text-align:center;">
+            <div style="font-size:24px;">⏳</div>
+            <div style="font-size:12px;color:#64748b;">Time</div>
+          </div>
+          <div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:10px;text-align:center;">
+            <div style="font-size:24px;">💸</div>
+            <div style="font-size:12px;color:#64748b;">Cost</div>
+          </div>
+          <div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:10px;text-align:center;">
+            <div style="font-size:24px;">🧩</div>
+            <div style="font-size:12px;color:#64748b;">Integration</div>
+          </div>
+          <div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:10px;text-align:center;">
+            <div style="font-size:24px;">🎯</div>
+            <div style="font-size:12px;color:#64748b;">Quality</div>
+          </div>
+          <div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:10px;text-align:center;">
+            <div style="font-size:24px;">🧑‍🤝‍🧑</div>
+            <div style="font-size:12px;color:#64748b;">Resources</div>
+          </div>
+          <div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:10px;text-align:center;">
+            <div style="font-size:24px;">📣</div>
+            <div style="font-size:12px;color:#64748b;">Comms</div>
+          </div>
+          <div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:10px;text-align:center;">
+            <div style="font-size:24px;">⚠️</div>
+            <div style="font-size:12px;color:#64748b;">Risk</div>
+          </div>
+          <div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:10px;text-align:center;">
+            <div style="font-size:24px;">🛒</div>
+            <div style="font-size:12px;color:#64748b;">Procurement</div>
+          </div>
+          <div style="background:#f8fafc;border:1px dashed #cbd5e1;border-radius:12px;padding:10px;text-align:center;grid-column:2/3;">
+            <div style="font-size:24px;">🤝</div>
+            <div style="font-size:12px;color:#64748b;">Stakeholders</div>
+          </div>
+        </div>
+        <p style="margin:12px 0 0 0;text-align:center;color:#64748b;font-size:12px;">Badges unlock as you score points across rounds.</p>
+      </div>
+    </section>
+
+    <!-- Round A: Match It! -->
+    <section style="margin-top:16px;background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:16px;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="background:linear-gradient(135deg,#93c5fd,#c4b5fd);width:32px;height:32px;border-radius:8px;color:#0f172a;display:flex;align-items:center;justify-content:center;font-weight:800;">A</div>
+        <h3 style="margin:0;color:#0f172a;font-size:18px;">Round A — Match It! (Multiple‑choice — customizable)</h3>
+      </div>
+      <p style="margin:8px 0 12px 0;color:#334155;">Pick the <em>correct Knowledge Area</em> for each prompt. <strong>+10 points</strong> per correct answer. Timer auto‑starts when you begin.</p>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:8px;align-items:center;background:#f8fafc;border:1px solid #e2e8f0;border-radius:10px;padding:10px;">
+        <label style="font-size:12px;color:#64748b;">Questions
+          <select id="questionCount" style="margin-left:6px;background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;color:#0f172a;padding:6px 8px;">
+            <option value="12" selected>12</option>
+            <option value="15">15</option>
+            <option value="20">20</option>
+          </select>
+        </label>
+        <label style="font-size:12px;color:#64748b;">Difficulty
+          <select id="difficulty" style="margin-left:6px;background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;color:#0f172a;padding:6px 8px;">
+            <option value="mixed" selected>Mixed</option>
+            <option value="easy">Easy</option>
+            <option value="medium">Medium</option>
+            <option value="hard">Hard</option>
+          </select>
+        </label>
+        <label style="font-size:12px;color:#64748b;">Area
+          <select id="filterArea" style="margin-left:6px;background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;color:#0f172a;padding:6px 8px;">
+            <option value="all" selected>All Areas</option>
+          </select>
+        </label>
+        <button id="applyQuizBtn" style="margin-left:auto;cursor:pointer;background:#bae6fd;border:1px solid #7dd3fc;color:#0c4a6e;font-weight:800;border-radius:10px;padding:8px 12px;">Apply</button>
+      </div>
+      <div id="quizContainer" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;"></div>
+      <div style="display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;">
+        <button id="newQuizBtn" style="cursor:pointer;background:#f5d0fe;border:1px solid #e9d5ff;color:#6b21a8;font-weight:800;border-radius:10px;padding:10px 12px;">🎲 New Set</button>
+        <button id="submitQuizBtn" style="cursor:pointer;background:#86efac;border:1px solid #34d399;color:#065f46;font-weight:800;border-radius:10px;padding:10px 12px;">✅ Submit</button>
+        <span id="quizFeedback" style="align-self:center;color:#1d4ed8;font-weight:700;"> </span>
+      </div>
+    </section>
+
+    <!-- Round B: Mini‑Artifacts -->
+    <section style="margin-top:16px;background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:16px;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="background:linear-gradient(135deg,#93c5fd,#c4b5fd);width:32px;height:32px;border-radius:8px;color:#0f172a;display:flex;align-items:center;justify-content:center;font-weight:800;">B</div>
+        <h3 style="margin:0;color:#0f172a;font-size:18px;">Round B — Mini‑Artifacts</h3>
+      </div>
+      <p style="margin:8px 0 12px 0;color:#334155;">Fill any <strong>two</strong> artifacts. Each completed artifact awards up to <strong>20 points</strong>.</p>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;">
+        <!-- WBS Card -->
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <strong style="color:#1d4ed8;">Scope → WBS (3 levels)</strong>
+            <span id="wbsScore" style="font-size:12px;color:#059669;font-weight:700;">0/20</span>
+          </div>
+          <textarea id="wbsInput" rows="7" placeholder="Example\n1. Initiation\n  1.1 Charter\n  1.2 Stakeholders\n2. Planning\n  2.1 WBS\n  2.2 Schedule" style="width:100%;background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;color:#0f172a;padding:8px;resize:vertical;"></textarea>
+          <button onclick="scoreWBS()" style="margin-top:8px;cursor:pointer;background:#86efac;border:1px solid #34d399;color:#065f46;font-weight:800;border-radius:8px;padding:8px 10px;width:100%;">Score WBS</button>
+        </div>
+        <!-- Risk Register Card -->
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <strong style="color:#1d4ed8;">Risk → Mini Risk Register</strong>
+            <span id="riskScore" style="font-size:12px;color:#059669;font-weight:700;">0/20</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+            <input id="risk1" placeholder="Risk (e.g., Scope creep)" style="background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;color:#0f172a;padding:8px;"/>
+            <input id="mit1" placeholder="Response (e.g., Change control)" style="background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;color:#0f172a;padding:8px;"/>
+            <input id="risk2" placeholder="Risk" style="background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;color:#0f172a;padding:8px;"/>
+            <input id="mit2" placeholder="Response" style="background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;color:#0f172a;padding:8px;"/>
+            <input id="risk3" placeholder="Risk" style="background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;color:#0f172a;padding:8px;"/>
+            <input id="mit3" placeholder="Response" style="background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;color:#0f172a;padding:8px;"/>
+          </div>
+          <button onclick="scoreRisk()" style="margin-top:8px;cursor:pointer;background:#86efac;border:1px solid #34d399;color:#065f46;font-weight:800;border-radius:8px;padding:8px 10px;width:100%;">Score Risks</button>
+        </div>
+        <!-- Comms Plan Card -->
+        <div style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:12px;">
+          <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;">
+            <strong style="color:#1d4ed8;">Comms → Stakeholder Comms Plan</strong>
+            <span id="commsScore" style="font-size:12px;color:#059669;font-weight:700;">0/20</span>
+          </div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;">
+            <input id="audience" placeholder="Audience (e.g., Sponsor)" style="background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;color:#0f172a;padding:8px;"/>
+            <input id="channel" placeholder="Channel (e.g., Email)" style="background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;color:#0f172a;padding:8px;"/>
+            <input id="freq" placeholder="Frequency (e.g., Weekly)" style="background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;color:#0f172a;padding:8px;"/>
+            <input id="owner" placeholder="Owner (e.g., PM)" style="background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;color:#0f172a;padding:8px;"/>
+          </div>
+          <button onclick="scoreComms()" style="margin-top:8px;cursor:pointer;background:#86efac;border:1px solid #34d399;color:#065f46;font-weight:800;border-radius:8px;padding:8px 10px;width:100%;">Score Comms</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Round C: Integrations -->
+    <section style="margin-top:16px;background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:16px;">
+      <div style="display:flex;align-items:center;gap:8px;">
+        <div style="background:linear-gradient(135deg,#93c5fd,#c4b5fd);width:32px;height:32px;border-radius:8px;color:#0f172a;display:flex;align-items:center;justify-content:center;font-weight:800;">C</div>
+        <h3 style="margin:0;color:#0f172a;font-size:18px;">Round C — Integration Links</h3>
+      </div>
+      <p style="margin:8px 0 12px 0;color:#334155;">Choose two Knowledge Areas and explain how they interact in a scenario. Submit for up to <strong>20 points</strong> (quality/completeness).</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+        <select id="area1" style="background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;color:#0f172a;padding:10px;">
+          <option value="">Select Area 1</option>
+        </select>
+        <select id="area2" style="background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;color:#0f172a;padding:10px;">
+          <option value="">Select Area 2</option>
+        </select>
+      </div>
+      <textarea id="integrationText" rows="5" placeholder="Example: Changes in Scope can impact Time (schedule) and Cost (budget). Perform Integrated Change Control to update baselines and communicate via the Comms Plan." style="width:100%;margin-top:8px;background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;color:#0f172a;padding:8px;resize:vertical;"></textarea>
+      <div style="display:flex;gap:8px;margin-top:8px;flex-wrap:wrap;">
+        <button onclick="scoreIntegration()" style="cursor:pointer;background:#86efac;border:1px solid #34d399;color:#065f46;font-weight:800;border-radius:10px;padding:10px 12px;">📎 Submit Integration</button>
+        <span id="integrationScore" style="align-self:center;color:#059669;font-weight:700;">0/20</span>
+      </div>
+    </section>
+
+    <!-- Live Log -->
+    <section style="margin-top:16px;background:#ffffff;border:1px solid #e2e8f0;border-radius:16px;padding:16px;">
+      <div style="display:flex;align-items:center;gap:8px;justify-content:space-between;">
+        <h3 style="margin:0;color:#0f172a;font-size:18px;">Live Activity Log</h3>
+        <button id="selfTestBtn" title="Run quick self-tests" style="cursor:pointer;background:#fde68a;border:1px solid #f59e0b;color:#78350f;font-weight:800;border-radius:10px;padding:8px 12px;">Run Self‑Test</button>
+      </div>
+      <div id="log" style="background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:10px;max-height:220px;overflow:auto;font-family:ui-monospace,Consolas,monaco,monospace;font-size:12px;"></div>
+    </section>
+
+    <footer style="margin:24px 0 40px 0;text-align:center;color:#64748b;font-size:12px;">
+      Built for Lesson 3 — Knowledge Areas. Gamified learning for class or groups. Light pastel theme.
+    </footer>
+  </main>
+
+  <script>
+    // --- Data ---
+    const AREAS = [
+      'Integration','Scope','Time','Cost','Quality','Resources','Communications','Risk','Procurement','Stakeholder'
+    ];
+
+    const QUIZ_BANK = [
+      // Integration
+      {q:'Develop the Project Management Plan that integrates all subsidiary plans.', a:'Integration', area:'Integration', d:'medium'},
+      {q:'Perform Integrated Change Control on a submitted change request.', a:'Integration', area:'Integration', d:'hard'},
+      {q:'Close a phase and archive project documents.', a:'Integration', area:'Integration', d:'easy'},
+      {q:'Create the Project Charter with sponsor approval.', a:'Integration', area:'Integration', d:'easy'},
+      // Scope
+      {q:'Collect requirements from stakeholders via interviews and surveys.', a:'Scope', area:'Scope', d:'easy'},
+      {q:'Create a hierarchical Work Breakdown Structure (WBS).', a:'Scope', area:'Scope', d:'medium'},
+      {q:'Validate scope by obtaining formal acceptance of deliverables.', a:'Scope', area:'Scope', d:'easy'},
+      {q:'Control scope to minimize scope creep.', a:'Scope', area:'Scope', d:'medium'},
+      // Time (Schedule)
+      {q:'Define activities from the WBS work packages.', a:'Time', area:'Time', d:'easy'},
+      {q:'Sequence activities using precedence relationships.', a:'Time', area:'Time', d:'medium'},
+      {q:'Estimate activity durations for the schedule.', a:'Time', area:'Time', d:'medium'},
+      {q:'Develop the schedule and identify the critical path.', a:'Time', area:'Time', d:'hard'},
+      {q:'Control the schedule against baseline slippage.', a:'Time', area:'Time', d:'medium'},
+      // Cost
+      {q:'Estimate costs using analogous and bottom-up methods.', a:'Cost', area:'Cost', d:'medium'},
+      {q:'Determine the cost baseline.', a:'Cost', area:'Cost', d:'medium'},
+      {q:'Measure CPI and SPI using Earned Value.', a:'Cost', area:'Cost', d:'hard'},
+      {q:'Control cost variances with corrective actions.', a:'Cost', area:'Cost', d:'medium'},
+      // Quality
+      {q:'Plan quality standards and metrics for deliverables.', a:'Quality', area:'Quality', d:'medium'},
+      {q:'Manage quality via process audits and improvements.', a:'Quality', area:'Quality', d:'medium'},
+      {q:'Control quality by inspecting outputs against acceptance criteria.', a:'Quality', area:'Quality', d:'easy'},
+      // Resources (Human/Physical)
+      {q:'Estimate activity resources (people, equipment, materials).', a:'Resources', area:'Resources', d:'easy'},
+      {q:'Acquire and onboard the project team.', a:'Resources', area:'Resources', d:'easy'},
+      {q:'Develop team skills and manage performance.', a:'Resources', area:'Resources', d:'medium'},
+      {q:'Control physical resources usage.', a:'Resources', area:'Resources', d:'medium'},
+      // Communications
+      {q:'Plan communications: who needs what info and when.', a:'Communications', area:'Communications', d:'easy'},
+      {q:'Distribute information per the communications plan.', a:'Communications', area:'Communications', d:'easy'},
+      {q:'Monitor communications effectiveness and adjust.', a:'Communications', area:'Communications', d:'medium'},
+      // Risk
+      {q:'Plan risk management and define risk categories.', a:'Risk', area:'Risk', d:'medium'},
+      {q:'Identify risks and populate the risk register.', a:'Risk', area:'Risk', d:'easy'},
+      {q:'Perform qualitative risk analysis to prioritize.', a:'Risk', area:'Risk', d:'medium'},
+      {q:'Perform quantitative risk analysis (e.g., Monte Carlo).', a:'Risk', area:'Risk', d:'hard'},
+      {q:'Plan risk responses: mitigate, avoid, transfer, accept.', a:'Risk', area:'Risk', d:'medium'},
+      {q:'Implement risk responses during execution.', a:'Risk', area:'Risk', d:'medium'},
+      {q:'Monitor risks and update risk audits/trends.', a:'Risk', area:'Risk', d:'medium'},
+      // Procurement
+      {q:'Plan procurement strategy and contract types.', a:'Procurement', area:'Procurement', d:'medium'},
+      {q:'Conduct procurements and select sellers.', a:'Procurement', area:'Procurement', d:'medium'},
+      {q:'Control procurements and manage vendor performance.', a:'Procurement', area:'Procurement', d:'medium'},
+      // Stakeholder
+      {q:'Identify stakeholders and analyze power/interest.', a:'Stakeholder', area:'Stakeholder', d:'easy'},
+      {q:'Plan stakeholder engagement strategies.', a:'Stakeholder', area:'Stakeholder', d:'medium'},
+      {q:'Manage stakeholder engagement and expectations.', a:'Stakeholder', area:'Stakeholder', d:'medium'},
+      {q:'Monitor stakeholder engagement and adjust plans.', a:'Stakeholder', area:'Stakeholder', d:'medium'}
+    ];
+
+    // --- State ---
+    let points = 0;
+    let badges = [];
+    let timer = 300; // 5 minutes default
+    let timerId = null;
+    let quizSet = [];
+
+    // --- Helpers ---
+    function $(id){ return document.getElementById(id); }
+    function log(msg){ const el=$('log'); const t=new Date().toLocaleTimeString(); el.innerHTML = `<div>[${t}] ${msg}</div>` + el.innerHTML; }
+    function updateHUD(){ $('points').textContent = points; $('badges').textContent = badges.length? badges.join(' • '): '—'; }
+    function award(pointsToAdd, reason){ points += pointsToAdd; updateHUD(); log(`+${pointsToAdd} pts — ${reason}`); checkBadges(); }
+    function checkBadges(){
+      const defs = [
+        {name:'Starter', cond: p=>p>=10},
+        {name:'Analyst', cond: p=>p>=40},
+        {name:'Integrator', cond: p=>p>=80},
+        {name:'PM Wizard', cond: p=>p>=120}
+      ];
+      defs.forEach(d=>{ if(d.cond(points) && !badges.includes(d.name)){ badges.push(d.name); toast(`🏅 Badge Unlocked: ${d.name}`); } });
+      updateHUD();
+    }
+    function toast(text){
+      const t = document.createElement('div');
+      t.textContent = text;
+      t.setAttribute('style','position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#d1fae5;color:#065f46;font-weight:800;padding:10px 12px;border-radius:999px;border:2px solid #34d399;box-shadow:0 4px 12px rgba(0,0,0,0.08);z-index:50;');
+      document.body.appendChild(t);
+      setTimeout(()=>t.remove(), 2200);
+    }
+
+    // --- Timer ---
+    function formatTime(s){ const m = Math.floor(s/60).toString().padStart(2,'0'); const r=(s%60).toString().padStart(2,'0'); return `${m}:${r}`; }
+    function startTimer(){ if(timerId) return; timerId = setInterval(()=>{ timer--; $('timer').textContent = formatTime(timer); if(timer===0){ clearInterval(timerId); timerId=null; toast('⏱ Time! Submit what you have.'); log('Timer ended.'); } }, 1000); }
+    function resetAll(){ points=0; badges=[]; timer=300; clearInterval(timerId); timerId=null; $('timer').textContent = formatTime(timer); updateHUD(); $('statusMsg').textContent='Ready.'; $('quizContainer').innerHTML=''; $('quizFeedback').textContent=''; $('wbsInput').value=''; $('wbsScore').textContent='0/20'; ['risk1','risk2','risk3','mit1','mit2','mit3'].forEach(id=>$(id).value=''); $('riskScore').textContent='0/20'; ['audience','channel','freq','owner'].forEach(id=>$(id).value=''); $('commsScore').textContent='0/20'; $('integrationText').value=''; $('integrationScore').textContent='0/20'; buildQuiz(); buildAreaSelects(); log('Reset session.'); }
+
+    // --- Quiz ---
+    function shuffle(arr){ return arr.map(v=>({v, r:Math.random()})).sort((a,b)=>a.r-b.r).map(o=>o.v); }
+    function buildQuiz(){
+      const countSel = $('questionCount');
+      const diffSel = $('difficulty');
+      const areaSel = $('filterArea');
+      const count = parseInt(countSel ? countSel.value : '12', 10);
+      const diff = diffSel ? diffSel.value : 'mixed';
+      const area = areaSel ? areaSel.value : 'all';
+      let pool = QUIZ_BANK.filter(item => (area==='all' || item.area===area) && (diff==='mixed' || item.d===diff));
+      if(pool.length === 0){ pool = QUIZ_BANK.slice(); }
+      quizSet = shuffle(pool).slice(0, Math.min(count, pool.length));
+      const c = $('quizContainer');
+      c.innerHTML = '';
+      quizSet.forEach((item,idx)=>{
+        const card = document.createElement('div');
+        card.setAttribute('style','background:#f8fafc;border:1px solid #e2e8f0;border-radius:12px;padding:10px;display:flex;flex-direction:column;gap:6px;');
+        const meta = document.createElement('div');
+        meta.setAttribute('style','font-size:11px;color:#64748b;display:flex;gap:8px;align-items:center;');
+        meta.innerHTML = `<span style="background:#e0f2fe;border:1px solid #bae6fd;border-radius:999px;padding:2px 6px;">${item.area}</span><span style="background:#ede9fe;border:1px solid #ddd6fe;border-radius:999px;padding:2px 6px;text-transform:capitalize;">${item.d}</span>`;
+        const q = document.createElement('div');
+        q.textContent = `${idx+1}. ${item.q}`;
+        q.setAttribute('style','font-weight:700;color:#0f172a;');
+        const sel = document.createElement('select');
+        sel.id = `qsel_${idx}`;
+        sel.setAttribute('style','background:#ffffff;border:1px solid #cbd5e1;border-radius:8px;color:#0f172a;padding:8px;');
+        sel.innerHTML = `<option value="">Choose area</option>` + AREAS.map(a=>`<option>${a}</option>`).join('');
+        card.appendChild(meta); card.appendChild(q); card.appendChild(sel); c.appendChild(card);
+      });
+      log(`New quiz set generated. Count=${quizSet.length}, Diff=${diff}, Area=${area}`);
+    }
+
+    function submitQuiz(){
+      startTimer();
+      let score = 0; let correct = 0;
+      quizSet.forEach((item,idx)=>{
+        const val = $(`qsel_${idx}`).value;
+        if(val === item.a){ score += 10; correct++; }
+      });
+      if(score>0){ award(score, `Round A — ${correct}/${quizSet.length} correct`); $('quizFeedback').textContent = `Scored ${score} pts (${correct}/${quizSet.length}).`; }
+      else { $('quizFeedback').textContent = 'No correct answers yet — try again!'; }
+    }
+
+    function initQuizControls(){
+      const areaSel = $('filterArea');
+      if(areaSel){ areaSel.innerHTML = '<option value="all" selected>All Areas</option>' + AREAS.map(a=>`<option value="${a}">${a}</option>`).join(''); }
+      const applyBtn = $('applyQuizBtn');
+      if(applyBtn){ applyBtn.addEventListener('click', buildQuiz); }
+    }
+
+    // --- Artifacts Scoring ---
+    function scoreWBS(){
+      startTimer();
+      const t = $('wbsInput').value.trim();
+      let lvl1 = (t.match(/^\d+\./gm)||[]).length;
+      let lvl2 = (t.match(/^\s+\d+\.\d+/gm)||[]).length;
+      let pts = 0;
+      if(lvl1>=3) pts += 8;
+      if(lvl2>=3) pts += 8;
+      if(t.split('\n').length>=6) pts += 4;
+      $('wbsScore').textContent = `${pts}/20`;
+      award(pts, 'Round B — WBS');
+    }
+
+    function scoreRisk(){
+      startTimer();
+      const rows = [ ['risk1','mit1'], ['risk2','mit2'], ['risk3','mit3'] ];
+      let filled = 0; rows.forEach(([r,m])=>{ if($(r).value.trim() && $(m).value.trim()) filled++; });
+      const pts = Math.min(20, filled*7);
+      $('riskScore').textContent = `${pts}/20`;
+      award(pts, 'Round B — Risk Register');
+    }
+
+    function scoreComms(){
+      startTimer();
+      const a = $('audience').value.trim();
+      const c = $('channel').value.trim();
+      const f = $('freq').value.trim();
+      const o = $('owner').value.trim();
+      let pts = 0; if(a) pts+=5; if(c) pts+=5; if(f) pts+=5; if(o) pts+=5;
+      $('commsScore').textContent = `${pts}/20`;
+      award(pts, 'Round B — Communications Plan');
+    }
+
+    // --- Integration ---
+    function buildAreaSelects(){
+      const opts = ['<option value="">Select Area</option>'].concat(AREAS.map(a=>`<option>${a}</option>`)).join('');
+      $('area1').innerHTML = opts; $('area2').innerHTML = opts;
+    }
+
+    function scoreIntegration(){
+      startTimer();
+      const a1 = $('area1').value; const a2 = $('area2').value; const txt = $('integrationText').value.trim();
+      if(!a1 || !a2 || a1===a2 || txt.length<30){ $('integrationScore').textContent = '0/20'; log('Integration submission needs two distinct areas and >30 chars.'); return; }
+      let pts = 10;
+      const keywords = ['baseline','change','impact','stakeholder','risk','schedule','budget','quality','communicate','control','procure'];
+      const hits = keywords.filter(k=> txt.toLowerCase().includes(k)).length;
+      if(hits>=2) pts += 5; if(hits>=4) pts += 5;
+      $('integrationScore').textContent = `${pts}/20`;
+      award(pts, `Round C — ${a1} ↔ ${a2}`);
+    }
+
+    // --- Export ---
+    function exportReport(){
+      const lines = [];
+      lines.push('Lesson 3 — Knowledge Areas: Session Report');
+      lines.push('-------------------------------------------');
+      lines.push(`Final Points: ${points}`);
+      lines.push(`Badges: ${badges.join(', ') || 'None'}`);
+      lines.push('');
+      lines.push('Round B Scores:');
+      lines.push(`  WBS: ${$('wbsScore').textContent}`);
+      lines.push(`  Risks: ${$('riskScore').textContent}`);
+      lines.push(`  Comms: ${$('commsScore').textContent}`);
+      lines.push('');
+      lines.push('Round C:');
+      lines.push(`  Areas: ${$('area1').value} ↔ ${$('area2').value}`);
+      lines.push('  Write‑up:');
+      lines.push($('integrationText').value.replace(/\n/g,'\n  '));
+      const blob = new Blob([lines.join('\n')], {type:'text/plain'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'Lesson3_Session_Report.txt'; a.click();
+      URL.revokeObjectURL(url);
+      log('Report exported.');
+    }
+
+    // --- Self‑tests (simple) ---
+    function runSelfTests(){
+      const results = [];
+      try { results.push(['functions_exist', ['buildQuiz','submitQuiz','scoreWBS','scoreRisk','scoreComms','scoreIntegration','exportReport'].every(fn=>typeof window[fn]==='function')]); } catch(e){ results.push(['functions_exist', false, e.message]); }
+      try { buildQuiz(); const ok = Array.isArray(quizSet) && quizSet.length>0; results.push(['build_quiz_generates_items', ok]); } catch(e){ results.push(['build_quiz_generates_items', false, e.message]); }
+      try { const before = points; award(0,'selftest noop'); results.push(['award_updates_hud', $('points').textContent == String(points)]); points = before; updateHUD(); } catch(e){ results.push(['award_updates_hud', false, e.message]); }
+      try { $('wbsInput').value = '1. A\n  1.1 A1\n  1.2 A2\n2. B\n  2.1 B1'; scoreWBS(); results.push(['scoreWBS_range', /\d{1,2}\/20/.test($('wbsScore').textContent)]); } catch(e){ results.push(['scoreWBS_range', false, e.message]); }
+      log('Self‑tests: ' + results.map(([k,v])=>`${k}=${v?'OK':'FAIL'}`).join(' | '));
+    }
+
+    // --- Wire up ---
+    $('startBtn').addEventListener('click', ()=>{ $('statusMsg').textContent='Timer running — good luck!'; startTimer(); });
+    $('resetBtn').addEventListener('click', resetAll);
+    $('exportBtn').addEventListener('click', exportReport);
+    $('newQuizBtn').addEventListener('click', ()=>{ buildQuiz(); startTimer(); });
+    $('submitQuizBtn').addEventListener('click', submitQuiz);
+    $('selfTestBtn').addEventListener('click', runSelfTests);
+
+    // Init
+    (function init(){
+      $('timer').textContent = formatTime(timer);
+      buildQuiz();
+      buildAreaSelects();
+      updateHUD();
+      log('Ready. Choose filters, then Apply or generate a new set.');
+      initQuizControls();
+    })();
+  </script>
+</body>
+</html>
